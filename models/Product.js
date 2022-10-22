@@ -24,8 +24,7 @@ const schema = new Schema({
     },
     long_description: String,
     c_isSale: Boolean,
-    c_showMenu: { type: Boolean },
-    category_id: {type: Schema.Types.ObjectId, ref: "Category"}
+    c_showMenu: { type: Boolean }
 });
 
 module.exports = model('Product', schema);
