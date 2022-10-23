@@ -1,23 +1,38 @@
 .card { 
-  margin: 10%;
+  margin: 3%;
 }
 
-.img-fluid {
-
-  width: 70%;
-  margin: auto;
-  display: block;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.list-group-item.image-item {
-  min-height: 388px;
+.items {
+  padding: 0;
 }
 
 .list-group-item.desc {
   min-height: 72px;
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+.header {
+  height: 20vh;
+  background-color: lightgray;
+  text-align: center;
+  font-size: xx-large;
+}
+
+form label{
+  margin-top: 5vh;
+  font-size: x-large;
+  display: block;
+} 
+
+#header {
+  margin: 0;
+  padding: 0;
+}
+
+.button {
+  margin-top: 5vh;
 }
