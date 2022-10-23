@@ -8,8 +8,9 @@ router.get('/products', async function (req, res) {
   const page = req.query.page;
   const categories = await categoryService.getAll();
   const products = await productService.getProductsWithLimit({}, page);
+  const filters = await productService.getFilters();
 
-  res.render('index.ejs', { products, categories });
+  res.render('index.ejs', { products, categories, filters });
 });
 
 /* GET category page. */
@@ -21,6 +22,11 @@ router.get('/:categoryId', async function (req, res) {
 
   res.render('index.ejs', { products, categories });
 });
+
+router.post('/products', async function (req, res) {
+  console.log(req.body);
+  res.end();
+})
 
 
 module.exports = router;
