@@ -21,19 +21,19 @@
         </div>
       </nav>
       <div class="header">
-        Online Store
+        <a href="/">Online Store</a>
       </div>
     </div>
   </section>
 
-
   <div class="container">
     <div class="row">
       <div class="col-4">
-        <form action="/products" method="POST">
+        <form method="get">
           <% filters.forEach(filter => { %>
             <label class="text-center" for="<%= filter.id %>"><%= filter.id %></label>
             <select name="<%= filter.id %>" class="form-select" id="<%= filter.id %>" aria-label="Default select example" >
+            <option value="" selected disabled hidden>Choose here</option>
               <% filter.values.forEach(filterValue => { %>
                 <option name="<%= filterValue %>" value="<%= filterValue %>"><%= filterValue %></option>
               <% }) %> 
@@ -71,22 +71,20 @@
     </div>
   </div>
 
-
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
-      <% if (products.currentPage - 1> 0) { %>
-        <li class="page-item"><a class="page-link" href="?page=<%= products.currentPage - 1 %>">Previous</a></li>
+      <% if (products.currentPage - 1 > 0) { %>
+        <li class="page-item"><a class="page-link" href="<%= previousPage %>">Previous</a></li>
       <% } else { %>
         <li class="page-item"><a class="page-link disabled" disable href="#">Previous</a></li>
       <% } %>
       <% if (products.currentPage < products.totalPages) { %>
-        <li class="page-item"><a class="page-link" href="?page=<%= products.currentPage + 1 %>">Next</a></li>
+        <li class="page-item"><a class="page-link" href="<%= nextPage %>">Next</a></li>
       <% } else { %>
         <li class="page-item"><a class="page-link disabled" href="#">Next</a></li>
       <% } %>
     </ul>
   </nav>
-
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
