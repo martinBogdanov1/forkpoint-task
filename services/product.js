@@ -1,14 +1,14 @@
 const Product = require('../models/Product');
 
-async function getProductsWithLimit(filter = {}, page = 1, limit = 16) {
-    page = Number(page)
-
+async function getProductsWithLimit(filter, page = 1, limit = 16) {
+    page = Number(page);
     const products = await Product.find(filter)
         .limit(limit)
         .skip((page - 1) * limit)
         .lean();
 
     const count = await Product.countDocuments(filter);
+
     return {
         items: transformDetailsForDisplay(products),
         totalPages: Math.ceil(count / limit),
@@ -16,13 +16,19 @@ async function getProductsWithLimit(filter = {}, page = 1, limit = 16) {
     }
 }
 
-async function getFilters() {
+async function getFilters(categoryId) {
+    let query = { variation_attributes: { $ne: null } };
+
+    if (categoryId) {
+        query.primary_category_id = categoryId;
+    }
+
     const variationAttributes = await Product
-        .find({ variation_attributes: { $ne: null } })
+        .find(query)
         .lean();
 
     let attributesValues = [];
-    variationAttributes.map(attributes => {
+    variationAttributes.forEach(attributes => {
         attributes.variation_attributes.forEach(item => {
             const valuesIndex = attributesValues.findIndex(x => (x.id == item.id));
             if (valuesIndex <= -1) {
@@ -39,6 +45,7 @@ async function getFilters() {
             });
         });
     });
+
     return attributesValues;
 }
 
